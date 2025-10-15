@@ -1,0 +1,21 @@
+version: "3.3" # Versão recomendada do Docker Compose file format
+
+services:
+  portainer:
+    container_name: portainer
+    image: portainer/portainer-ce:latest
+    restart: always
+    ports:
+      # Porta para a interface web (HTTPS)
+      - "9443:9443"
+      # Porta para o agente (opcional, mas recomendada)
+      - "8000:8000"
+    volumes:
+      # Monta o socket do Docker para gerenciar o ambiente local
+      - /var/run/docker.sock:/var/run/docker.sock
+      # Monta o volume para dados persistentes
+      - portainer_data:/data
+
+volumes:
+  portainer_data:
+    external: true # Indica que o volume foi criado previamente
